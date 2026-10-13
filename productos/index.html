@@ -3,11 +3,11 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Productos del semestre 2026-2 · Jhonatan Vivas Arango</title>
-<meta name="description" content="Repositorio de interpretaciones y traducciones LSC-E realizadas por Jhonatan David Vivas Arango durante el semestre 2026-2 en la UTP.">
+<title>Repositorio de interpretaciones y traducciones · Semestre 2026-2 · Jhonatan Vivas Arango</title>
+<meta name="description" content="Productos de interpretación y traducción LSC–Español del semestre 2026-2, organizados por asignatura.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&family=Manrope:wght@400;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Jost:wght@300;400;500&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,600;1,6..72,400&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="../assets/style.css">
 </head>
 <body>
@@ -15,44 +15,51 @@
 
 <header class="top">
   <div class="wrap">
-    <a class="brand" href="../">Jhonatan Vivas <i>LSC-E</i></a>
+    <a class="brand" href="../">Jhonatan Vivas<small>LSC–Español</small></a>
     <nav class="nav" aria-label="Principal">
       <a href="../">Presentación</a>
-      <a href="./" aria-current="page">Productos</a>
+      <a href="./" aria-current="page">Repositorio</a>
     </nav>
   </div>
 </header>
 
 <main id="contenido">
-  <section class="phead">
+  <section class="phead" data-trail>
+    <svg class="art2" viewBox="0 0 560 360" aria-hidden="true">
+      <path stroke="#A9814A" pathLength="1" style="--d:.3s" d="M120 180 a8 8 0 0 1 16 0 a20 20 0 0 1 -40 0 a36 36 0 0 1 72 0 a56 56 0 0 1 -112 0 a80 80 0 0 1 160 0 a106 106 0 0 1 -212 0"/>
+      <path stroke="#1F4A44" pathLength="1" style="--d:.8s" d="M20 70 C 90 10, 150 130, 230 70 S 370 10, 440 70 S 530 130, 580 60"/>
+      <path stroke="#26221C" pathLength="1" style="--d:1.3s" d="M300 300 L340 250 L380 310 L420 250 L460 310 L500 250 L540 300"/>
+    </svg>
     <div class="wrap">
-      <h1 class="rise">Productos <em>del semestre</em></h1>
-      <p class="rise" style="--d:.2s">Repositorio del semestre 2026-2, organizado por asignatura. Reúne interpretaciones que aplican distintos métodos, técnicas y modalidades, y traducciones —entre ellas traducción audiovisual (TAV)— en dirección directa e inversa. Dentro de cada espacio, los videos van del más antiguo al más reciente.</p>
+      <h1><span class="ln"><span style="--d:.1s">Repositorio de</span></span><span class="ln"><span style="--d:.25s">interpretaciones</span></span><span class="ln"><span style="--d:.4s">y traducciones</span></span></h1>
+      <p class="intro fade" style="--d:.8s">Reúne los productos del semestre 2026-2, organizados por asignatura. Según el caso, involucran distintos métodos, técnicas y modalidades de interpretación y traducción, así como traducción audiovisual (TAV). Cuando un producto lo especifica, se señala su dirección directa o inversa. Dentro de cada asignatura, los videos siguen un orden cronológico: del más antiguo al más reciente.</p>
     </div>
   </section>
 
   <div class="wrap layout">
-    <aside class="side" aria-label="Asignaturas">
+    <aside class="side" aria-label="Índice de asignaturas">
       <h2>Asignaturas</h2>
       <ul id="indice"></ul>
     </aside>
     <div id="asignaturas">
-      <noscript><p class="empty">Activa JavaScript para ver los videos.</p></noscript>
+      <noscript><p class="empty">Para ver los videos de este repositorio es necesario activar JavaScript.</p></noscript>
     </div>
   </div>
 </main>
 
 <footer>
-  <div class="wrap">Jhonatan David Vivas Arango · Intérprete y traductor LSC-E · Universidad Tecnológica de Pereira · 2026-2</div>
+  <div class="wrap">Jhonatan David Vivas Arango · Intérprete y traductor LSC–Español · Universidad Tecnológica de Pereira · Semestre 2026-2</div>
 </footer>
 
 <script src="../assets/site.js"></script>
 <script>
 /* ================================================================
-   EDITAR AQUÍ: asignaturas y videos (del más antiguo al más reciente)
-   Cada video:  { id:"ID_YOUTUBE", title:"Título", tipo:"Traducción TAV · directa" }
-   - title y tipo son opcionales. Sin title se muestra "Producto N".
-   - Para añadir un video, agrega una línea nueva a "videos".
+   EDITAR AQUÍ: asignaturas y videos, del más antiguo al más reciente.
+   Cada video: { id:"ID_YOUTUBE", title:"Título", tipo:"Dirección directa" }
+   - title y tipo son opcionales. Sin title se muestra "Video 1", "Video 2", etc.
+   - tipo admite texto libre, por ejemplo: "Dirección inversa", "Traducción audiovisual (TAV)",
+     "Interpretación consecutiva". Escríbelo solo cuando tengas el dato.
+   - Para añadir un video nuevo, agrega una línea a "videos" de la asignatura.
    ================================================================ */
 const ASIGNATURAS = [
   { slug:"cultura-visual", nombre:"Cultura visual", videos:[
@@ -81,25 +88,25 @@ ASIGNATURAS.forEach(a => {
   indice.appendChild(li);
 
   const sec = document.createElement("section");
-  sec.className = "subject rv"; sec.id = a.slug;
+  sec.className = "subject"; sec.id = a.slug;
   sec.setAttribute("aria-labelledby","h-"+a.slug);
   const n = a.videos.length;
-  sec.innerHTML = `<header><h2 id="h-${a.slug}">${a.nombre}</h2><span>${n===0?"Sin productos por ahora":n+(n===1?" producto":" productos")}</span></header>`;
+  sec.innerHTML = `<header><h2 id="h-${a.slug}">${a.nombre}</h2><span>${n===0?"Aún sin videos":n===1?"1 video":n+" videos"}</span></header>`;
 
   if(n===0){
-    const e = document.createElement("p"); e.className="empty";
-    e.textContent = "Aún no hay productos en este espacio. Se irán publicando a medida que avance el semestre.";
+    const e = document.createElement("p"); e.className = "empty";
+    e.textContent = "Todavía no hay videos publicados en esta asignatura.";
     sec.appendChild(e);
   } else {
-    const g = document.createElement("div"); g.className="grid";
+    const g = document.createElement("div"); g.className = "grid";
     a.videos.forEach((v,i) => {
-      const titulo = v.title || `Producto ${i+1}`;
+      const titulo = v.title || `Video ${i+1}`;
       const when = n>1 && i===0 ? "Más antiguo" : (n>1 && i===n-1 ? "Más reciente" : "");
       const tags = (when?`<span class="tag when">${when}</span>`:"") + (v.tipo?`<span class="tag">${v.tipo}</span>`:"");
-      const card = document.createElement("article"); card.className="vid";
+      const card = document.createElement("article"); card.className = "vid rv"; card.style.setProperty("--i", i%3);
       card.innerHTML = `
         <div class="frame">
-          <button type="button" aria-label="Reproducir: ${titulo} (${a.nombre})">
+          <button type="button" aria-label="Reproducir ${titulo}, de ${a.nombre}">
             <img src="https://i.ytimg.com/vi/${v.id}/hqdefault.jpg" alt="" loading="lazy">
             <span class="play">${PLAY}</span>
           </button>
@@ -107,7 +114,7 @@ ASIGNATURAS.forEach(a => {
         <div class="cap">
           <strong>${titulo}</strong>
           ${tags?`<div class="tags">${tags}</div>`:""}
-          <a href="https://www.youtube.com/watch?v=${v.id}" target="_blank" rel="noopener">Ver en YouTube</a>
+          <a href="https://www.youtube.com/watch?v=${v.id}" target="_blank" rel="noopener">Abrir en YouTube</a>
         </div>`;
       card.querySelector("button").addEventListener("click",()=>{
         card.querySelector(".frame").innerHTML =
@@ -119,6 +126,8 @@ ASIGNATURAS.forEach(a => {
   }
   cont.appendChild(sec);
 });
+/* Las tarjetas se crean aquí; se registran para la animación de aparición */
+siteReveal();
 
 /* Resalta en el índice la asignatura visible */
 if("IntersectionObserver" in window){
@@ -128,13 +137,6 @@ if("IntersectionObserver" in window){
   },{rootMargin:"-30% 0px -60% 0px"});
   document.querySelectorAll(".subject").forEach(s=>so.observe(s));
 }
-/* Los .rv creados dinámicamente se registran después de cargar site.js */
-document.querySelectorAll(".subject.rv").forEach(el=>{
-  if(!("IntersectionObserver" in window)){el.classList.add("in");return;}
-  const o=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add("in");o.unobserve(e.target)}}),{threshold:.08});
-  o.observe(el);
-});
-if(matchMedia("(prefers-reduced-motion: reduce)").matches){document.querySelectorAll(".subject.rv").forEach(e=>e.classList.add("in"))}
 </script>
 </body>
 </html>
