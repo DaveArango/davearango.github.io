@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Productos del semestre 2026-2 · Jhonatan Vivas Arango</title>
+<meta name="description" content="Repositorio de interpretaciones y traducciones LSC-E realizadas por Jhonatan David Vivas Arango durante el semestre 2026-2 en la UTP.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&family=Manrope:wght@400;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../assets/style.css">
+</head>
+<body>
+<a class="skip" href="#contenido">Saltar al contenido</a>
+
+<header class="top">
+  <div class="wrap">
+    <a class="brand" href="../">Jhonatan Vivas <i>LSC-E</i></a>
+    <nav class="nav" aria-label="Principal">
+      <a href="../">Presentación</a>
+      <a href="./" aria-current="page">Productos</a>
+    </nav>
+  </div>
+</header>
+
+<main id="contenido">
+  <section class="phead">
+    <div class="wrap">
+      <h1 class="rise">Productos <em>del semestre</em></h1>
+      <p class="rise" style="--d:.2s">Repositorio del semestre 2026-2, organizado por asignatura. Reúne interpretaciones que aplican distintos métodos, técnicas y modalidades, y traducciones —entre ellas traducción audiovisual (TAV)— en dirección directa e inversa. Dentro de cada espacio, los videos van del más antiguo al más reciente.</p>
+    </div>
+  </section>
+
+  <div class="wrap layout">
+    <aside class="side" aria-label="Asignaturas">
+      <h2>Asignaturas</h2>
+      <ul id="indice"></ul>
+    </aside>
+    <div id="asignaturas">
+      <noscript><p class="empty">Activa JavaScript para ver los videos.</p></noscript>
+    </div>
+  </div>
+</main>
+
+<footer>
+  <div class="wrap">Jhonatan David Vivas Arango · Intérprete y traductor LSC-E · Universidad Tecnológica de Pereira · 2026-2</div>
+</footer>
+
+<script src="../assets/site.js"></script>
+<script>
+/* ================================================================
+   EDITAR AQUÍ: asignaturas y videos (del más antiguo al más reciente)
+   Cada video:  { id:"ID_YOUTUBE", title:"Título", tipo:"Traducción TAV · directa" }
+   - title y tipo son opcionales. Sin title se muestra "Producto N".
+   - Para añadir un video, agrega una línea nueva a "videos".
+   ================================================================ */
+const ASIGNATURAS = [
+  { slug:"cultura-visual", nombre:"Cultura visual", videos:[
+    {id:"O4LWMGDTI3w"},{id:"2sLqLR1HM_0"},{id:"bwEthtag1CA"},{id:"1hSqL8PLGQ8"},
+    {id:"YMUCKj_HAHM"},{id:"MB2N3JcL2ao"},{id:"HiLIHsYLi9o"},{id:"XaFjSMafB6U"}
+  ]},
+  { slug:"cine", nombre:"Cine", videos:[] },
+  { slug:"tecnologia-comunicacion-educacion", nombre:"Tecnología, comunicación y educación", videos:[
+    {id:"Iynk3xrrzao"},{id:"MNHW4tcCBlU"},{id:"gvd16v_3wwA"}
+  ]},
+  { slug:"fotografia-aplicada", nombre:"Fotografía aplicada", videos:[
+    {id:"21yN17m7dN4"},{id:"fz7_SlXt-Gc"}
+  ]},
+  { slug:"apoyos-traduccion", nombre:"Apoyos y traducción", videos:[
+    {id:"HM055ihY2T0"},{id:"D9girS0Yyrw"}
+  ]}
+];
+
+const indice = document.getElementById("indice");
+const cont = document.getElementById("asignaturas");
+const PLAY = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg>';
+
+ASIGNATURAS.forEach(a => {
+  const li = document.createElement("li");
+  li.innerHTML = `<a href="#${a.slug}" data-s="${a.slug}">${a.nombre}</a>`;
+  indice.appendChild(li);
+
+  const sec = document.createElement("section");
+  sec.className = "subject rv"; sec.id = a.slug;
+  sec.setAttribute("aria-labelledby","h-"+a.slug);
+  const n = a.videos.length;
+  sec.innerHTML = `<header><h2 id="h-${a.slug}">${a.nombre}</h2><span>${n===0?"Sin productos por ahora":n+(n===1?" producto":" productos")}</span></header>`;
+
+  if(n===0){
+    const e = document.createElement("p"); e.className="empty";
+    e.textContent = "Aún no hay productos en este espacio. Se irán publicando a medida que avance el semestre.";
+    sec.appendChild(e);
+  } else {
+    const g = document.createElement("div"); g.className="grid";
+    a.videos.forEach((v,i) => {
+      const titulo = v.title || `Producto ${i+1}`;
+      const when = n>1 && i===0 ? "Más antiguo" : (n>1 && i===n-1 ? "Más reciente" : "");
+      const tags = (when?`<span class="tag when">${when}</span>`:"") + (v.tipo?`<span class="tag">${v.tipo}</span>`:"");
+      const card = document.createElement("article"); card.className="vid";
+      card.innerHTML = `
+        <div class="frame">
+          <button type="button" aria-label="Reproducir: ${titulo} (${a.nombre})">
+            <img src="https://i.ytimg.com/vi/${v.id}/hqdefault.jpg" alt="" loading="lazy">
+            <span class="play">${PLAY}</span>
+          </button>
+        </div>
+        <div class="cap">
+          <strong>${titulo}</strong>
+          ${tags?`<div class="tags">${tags}</div>`:""}
+          <a href="https://www.youtube.com/watch?v=${v.id}" target="_blank" rel="noopener">Ver en YouTube</a>
+        </div>`;
+      card.querySelector("button").addEventListener("click",()=>{
+        card.querySelector(".frame").innerHTML =
+          `<iframe src="https://www.youtube-nocookie.com/embed/${v.id}?autoplay=1&rel=0" title="${titulo} – ${a.nombre}" allow="accelerometer; autoplay; clipboard-write; encrypted-media; picture-in-picture; fullscreen" allowfullscreen></iframe>`;
+      });
+      g.appendChild(card);
+    });
+    sec.appendChild(g);
+  }
+  cont.appendChild(sec);
+});
+
+/* Resalta en el índice la asignatura visible */
+if("IntersectionObserver" in window){
+  const links = [...document.querySelectorAll("[data-s]")];
+  const so = new IntersectionObserver(es=>{
+    es.forEach(e=>{ if(e.isIntersecting){ links.forEach(l=>l.classList.toggle("on", l.dataset.s===e.target.id)); } });
+  },{rootMargin:"-30% 0px -60% 0px"});
+  document.querySelectorAll(".subject").forEach(s=>so.observe(s));
+}
+/* Los .rv creados dinámicamente se registran después de cargar site.js */
+document.querySelectorAll(".subject.rv").forEach(el=>{
+  if(!("IntersectionObserver" in window)){el.classList.add("in");return;}
+  const o=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add("in");o.unobserve(e.target)}}),{threshold:.08});
+  o.observe(el);
+});
+if(matchMedia("(prefers-reduced-motion: reduce)").matches){document.querySelectorAll(".subject.rv").forEach(e=>e.classList.add("in"))}
+</script>
+</body>
+</html>
